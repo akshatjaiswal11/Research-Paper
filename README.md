@@ -18,6 +18,7 @@ This project converts grayscale images into colorized versions using a deep lear
 - NumPy
 
 Install dependencies using:
+- pip install numpy opencv-python
 
 ## Model Files Required
 
