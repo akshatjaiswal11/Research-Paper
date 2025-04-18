@@ -29,7 +29,7 @@ MODEL = os.path.join(DIR, r"model/colorization_release_v2.caffemodel")
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", type=str, required=True,
 	help="path to input black and white image")
-args = {"image": r"C:\Users\Akshat Jaiswal\OneDrive\Desktop\RM_research_paper\image_samples\images.jpg"}
+args = {"image": r"C:\Users\Akshat Jaiswal\OneDrive\Desktop\RM_research_paper\image_samples\istockphoto-1438873264-612x612.jpg"}
 
 
 # Load the Model
@@ -67,6 +67,19 @@ colorized = np.clip(colorized, 0, 1)
 
 colorized = (255 * colorized).astype("uint8")
 
-cv2.imshow("Original", image)
-cv2.imshow("Colorized", colorized)
+# Resize both images for display (optional: keep aspect ratio)
+display_width = 600  # Or whatever you like (e.g., 400, 500)
+scale = display_width / image.shape[1]
+display_height = int(image.shape[0] * scale)
+
+# Resize original and colorized images
+image_display = cv2.resize(image, (display_width, display_height))
+colorized_display = cv2.resize(colorized, (display_width, display_height))
+
+# Concatenate images horizontally
+combined = np.hstack([image_display, colorized_display])
+
+# Show the combined image
+cv2.imshow("Original (Left) | Colorized (Right)", combined)
 cv2.waitKey(0)
+cv2.destroyAllWindows()
